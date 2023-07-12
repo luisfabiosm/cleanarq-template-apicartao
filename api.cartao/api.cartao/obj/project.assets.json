@@ -1699,11 +1699,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "X:\\Fabio\\W3\\Atividades Extras\\Desafio\\Desafio Individual Cartões\\Exemplo\\api.cartao\\api.cartao\\api.cartao.csproj",
+      "projectUniqueName": "D:\\Fabio\\git\\C#\\cleanarq-template-apicartao\\api.cartao\\api.cartao\\api.cartao.csproj",
       "projectName": "api.cartao",
-      "projectPath": "X:\\Fabio\\W3\\Atividades Extras\\Desafio\\Desafio Individual Cartões\\Exemplo\\api.cartao\\api.cartao\\api.cartao.csproj",
+      "projectPath": "D:\\Fabio\\git\\C#\\cleanarq-template-apicartao\\api.cartao\\api.cartao\\api.cartao.csproj",
       "packagesPath": "C:\\Users\\fabio\\.nuget\\packages\\",
-      "outputPath": "X:\\Fabio\\W3\\Atividades Extras\\Desafio\\Desafio Individual Cartões\\Exemplo\\api.cartao\\api.cartao\\obj\\",
+      "outputPath": "D:\\Fabio\\git\\C#\\cleanarq-template-apicartao\\api.cartao\\api.cartao\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

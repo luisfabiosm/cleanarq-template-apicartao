@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NUQb/o/Oe1G/waaXxfI2yXunI2hLL3J01jAfrZEo65HsW3/yzWaY2td8/N9UTwkHfEUwXubcZRopkDtaMxtHVA==",
+  "dgSpecHash": "Nyl1/myP4FBp3ydW9vsnDBx4+R0EaY0a7N2b9Wt9QdvuVKGqgBFL4LpAHY4yXBoMyNHEC3nq9etJn8NWm6yUaA==",
   "success": true,
-  "projectFilePath": "X:\\Fabio\\W3\\Atividades Extras\\Desafio\\Desafio Individual Cartões\\Exemplo\\api.cartao\\api.cartao\\api.cartao.csproj",
+  "projectFilePath": "D:\\Fabio\\git\\C#\\cleanarq-template-apicartao\\api.cartao\\api.cartao\\api.cartao.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fabio\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
     "C:\\Users\\fabio\\.nuget\\packages\\fluentvalidation\\11.6.0\\fluentvalidation.11.6.0.nupkg.sha512",
