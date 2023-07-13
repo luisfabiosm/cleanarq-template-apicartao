@@ -6,9 +6,9 @@
 
         public string Protocolo { get => _protocolo; }
 
-        public string setTransacaoProtocolo(string id)
+        public void setTransacaoProtocolo(string id)
         {
-            return generateProtocol(id);
+            _protocolo = generateProtocol(id);
         }
 
 

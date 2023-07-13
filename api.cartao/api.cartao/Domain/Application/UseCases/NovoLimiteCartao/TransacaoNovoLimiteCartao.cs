@@ -5,15 +5,15 @@ namespace Domain.Application.UseCases.NovoLimiteCartao
 {
     public class TransacaoNovoLimiteCartao : BaseTransacao
     {
-        public decimal Limite { get; }
-        public decimal Renda { get; }
-        public double FaixaCalculo { get; }
-        public int Multiplicador { get; }
-        public Cartao DadosCartao { get; }
+        public decimal Limite { get; internal set; }
+        public decimal Renda { get; internal set; }
+        public double FaixaCalculo { get; internal set; }
+        public int Multiplicador { get; internal set; }
+        public Cartao DadosCartao { get; internal set; }
 
         public TransacaoNovoLimiteCartao(Cartao cartao, decimal limite, decimal renda, int multiplicador, double faixa) : base(cartao.NumeroCartao)
         {
-            base.setTransacaoProtocolo(cartao.CartaoConta.id);
+            base.setTransacaoProtocolo(cartao.DadosConta.Numero.ToString());
             this.DadosCartao = cartao;
             this.Limite = limite;
             this.Renda = renda;

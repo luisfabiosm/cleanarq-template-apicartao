@@ -25,7 +25,7 @@ namespace Domain.Core.Models.Response
             TipoCartao = cartao.TipoCartao;
             StatusCartao = cartao.StatusCartao;
             Limite = cartao.Limite;
-            CartaoConta = cartao.CartaoConta;
+            CartaoConta = cartao.DadosConta;
         }
     }
 }

@@ -115,7 +115,7 @@ namespace Endpoints.Mapping
                 throw new RequestHeaderException(ex.Message);
             }
 
-            return new TransacaoBloquearCartao(request.DadosCartao, (EnumMotivoBloqueio)request.Motivo, request.InformacaoAdicoonal);
+            return new TransacaoBloquearCartao(request.DadosCartao, (EnumMotivoBloqueio)request.Motivo, request.informacaoAdicional);
 
         }
     }

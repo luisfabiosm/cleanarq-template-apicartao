@@ -17,7 +17,7 @@ namespace Domain.Core.Models.Entidades
         public EnumStatusCartao StatusCartao { get; set; }
 
         public decimal Limite { get; set; }
-        public Conta CartaoConta { get; set; }
+        public Conta DadosConta { get; set; }
 
        
     }

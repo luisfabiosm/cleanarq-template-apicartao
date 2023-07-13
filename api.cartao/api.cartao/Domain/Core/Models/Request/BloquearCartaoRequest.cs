@@ -5,8 +5,8 @@ namespace Domain.Core.Models.Request
 {
     public struct BloquearCartaoRequest
     {
-        public int Motivo { get; }
-        public string InformacaoAdicoonal { get; }
-        public Cartao DadosCartao { get; }
+        public int Motivo { get; set; }
+        public string informacaoAdicional { get; set; }
+        public Cartao DadosCartao { get; set; }
     }
 }

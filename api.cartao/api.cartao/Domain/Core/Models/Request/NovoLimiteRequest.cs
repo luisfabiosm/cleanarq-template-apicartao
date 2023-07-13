@@ -5,11 +5,11 @@ namespace Domain.Core.Models.Request
 {
     public struct NovoLimiteRequest
     {
-        public decimal Limite { get; }
-        public decimal Renda { get; }
-        public double FaixaCalculo { get; }
-        public int Multiplicador { get; }
-        public Cartao DadosCartao { get; }
+        public decimal Limite { get; set; }
+        public decimal Renda { get; set; }
+        public double FaixaCalculo { get; set; }
+        public int Multiplicador { get; set; }
+        public Cartao DadosCartao { get; set; }
 
     }
 }

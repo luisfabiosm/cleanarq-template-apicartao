@@ -20,7 +20,8 @@ namespace Domain.Application.UseCases.SolicitarCartao
 
             try
             {
-                await _esteira.PublicarPropostaSolicitacao(transacao);                
+                await _esteira.PublicarPropostaSolicitacao(transacao);   
+                
                 return new BaseReturn().Sucesso(new SolicitarCartaoResponse(transacao.Protocolo));
             }
             catch (Exception ex)

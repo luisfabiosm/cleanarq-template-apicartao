@@ -25,7 +25,7 @@ namespace Domain.Application.UseCases.SolicitarCartao
 
         public TransacaoSolicitarCartao(Conta conta, int diavencimento, EnumBandeiraCartao bandeira, EnumTipoCartao tipo)
         {
-            base.setTransacaoProtocolo(conta.id);
+            base.setTransacaoProtocolo(conta.Numero.ToString());
             this.DadosConta = conta;
             this.DiaVencimento = diavencimento;
             this.Bandeira = bandeira;

@@ -4,6 +4,7 @@ using Domain.Application.UseCases.ConsultarCartao;
 using Domain.Application.UseCases.ConsultarProtocolo;
 using Domain.Application.UseCases.NovoLimiteCartao;
 using Domain.Application.UseCases.SolicitarCartao;
+using Domain.Core.Base;
 using Domain.Core.Models.Entidades;
 
 namespace Domain.Core.Contracts.Repositories
@@ -15,13 +16,14 @@ namespace Domain.Core.Contracts.Repositories
 
         ValueTask<bool> AtualizarLimiteCartao(TransacaoNovoLimiteCartao transacao);
 
-        ValueTask<bool> BloquearCartao(TransacaoBloquearCartao transacao);
+        ValueTask<BaseReturn> BloquearCartao(TransacaoBloquearCartao transacao);
 
         ValueTask<Cartao> ConsultarCartao(TransacaoConsultarCartao transacao);
+      
+        ValueTask<Cartao> ConsultarCartao(string NumeroCartao);
 
         ValueTask<LogBloqueioCartao> ConsultarBloqueioCartao(TransacaoConsultarBloqueioCartao transacao);
-
-    
+        
         ValueTask<bool> GravarLogCartaoSolicitado(TransacaoSolicitarCartao transacao);
 
         ValueTask<bool> GravarLogNovoLimiteCartao(TransacaoNovoLimiteCartao transacao);

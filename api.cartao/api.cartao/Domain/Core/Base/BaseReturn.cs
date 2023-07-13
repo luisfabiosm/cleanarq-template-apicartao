@@ -27,7 +27,7 @@ namespace Domain.Core.Base
         }
 
 
-        public BaseReturn BussinesException(string message, string stack="")
+        public BaseReturn BussinesException(string message, string stack=null)
         {
             StatusCode = HttpStatusCode.BadRequest;
 

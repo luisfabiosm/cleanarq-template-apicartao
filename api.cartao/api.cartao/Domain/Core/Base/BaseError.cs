@@ -2,11 +2,16 @@
 
 namespace Domain.Core.Base
 {
+
     public record BaseError
     {
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? code { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? message { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? info { get; set; }
 
         public BaseError()

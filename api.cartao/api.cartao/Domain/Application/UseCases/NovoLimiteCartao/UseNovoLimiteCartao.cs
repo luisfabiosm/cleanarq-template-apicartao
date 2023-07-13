@@ -18,6 +18,11 @@ namespace Domain.Application.UseCases.NovoLimiteCartao
 
             try
             {
+                var _cartao = await _repo.ConsultarCartao(transacao.NumeroCartao);
+
+                if (_cartao is null)
+                    return new BaseReturn().BussinesException("Cartão inexistente.");
+
                 await _esteira.PublicarPropostaNovoLimite(transacao);
                 return new BaseReturn().Sucesso(transacao.Protocolo);
             }

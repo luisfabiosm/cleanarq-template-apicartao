@@ -24,7 +24,7 @@ namespace Adapters.MongoDB.Repositories
         private FilterDefinition<LogBloqueioCartao> _filterBloqueioCartao;
         private FilterDefinition<LogPropostaLimiteCartao> _filterLogNovoLimiteCartao;
         private FilterDefinition<LogPropostaSolicitaCartao> _filterLogSolicitaCartao;
-
+        private UpdateOptions _updateOptions;
         //private FilterDefinition<LogBloqueioCartao> _filterBloqueioCartao;
 
 
@@ -72,7 +72,7 @@ namespace Adapters.MongoDB.Repositories
         {
             var _cartao = new Cartao
             {
-                CartaoConta = transacao.DadosConta,
+                DadosConta = transacao.DadosConta,
                 NumeroCartao = transacao.NumeroCartao,
                 CVV = transacao.CVV,
                 Limite = transacao.Limite,
@@ -155,12 +155,14 @@ namespace Adapters.MongoDB.Repositories
             catch { throw; }
         }
 
-        public async ValueTask<bool> BloquearCartao(TransacaoBloquearCartao transacao)
+        public async ValueTask<BaseReturn> BloquearCartao(TransacaoBloquearCartao transacao)
         {
             try
             {
                 _filterCartao = Builders<Cartao>.Filter.Where(x => x.NumeroCartao == transacao.NumeroCartao);
                 var _updateCartao = Builders<Cartao>.Update.Set("StatusCartao", transacao.Motivo);
+
+                var _updated = await _colCartao.UpdateOneAsync(_filterCartao, _updateCartao, _updateOptions);
 
                 var _bloqueio = new LogBloqueioCartao
                 {
@@ -173,7 +175,7 @@ namespace Adapters.MongoDB.Repositories
 
                 _colBloqueioCartao.InsertOne(_bloqueio);
 
-                return true;
+                return new BaseReturn().Sucesso(true);
             }
             catch { throw; }
 
@@ -187,7 +189,15 @@ namespace Adapters.MongoDB.Repositories
 
         public async ValueTask<Cartao> ConsultarCartao(TransacaoConsultarCartao transacao)
         {
-            _filterCartao = Builders<Cartao>.Filter.Where(x => x.NumeroCartao == transacao.NumeroCartao);
+            //_filterCartao = Builders<Cartao>.Filter.Where(x => x.NumeroCartao == transacao.NumeroCartao);
+            //return await _colCartao.Find(_filterCartao).FirstOrDefaultAsync<Cartao>();
+
+            return await ConsultarCartao(transacao.NumeroCartao);
+        }
+
+        public async ValueTask<Cartao> ConsultarCartao(string numeroCartao)
+        {
+            _filterCartao = Builders<Cartao>.Filter.Where(x => x.NumeroCartao == numeroCartao);
             return await _colCartao.Find(_filterCartao).FirstOrDefaultAsync<Cartao>();
         }
 
@@ -201,6 +211,8 @@ namespace Adapters.MongoDB.Repositories
         {
             if (disposing)
             {
+
+                _updateOptions = null;
                 _filterCartao = null;
                 if (_colCartao != null)
                     _colCartao = null;

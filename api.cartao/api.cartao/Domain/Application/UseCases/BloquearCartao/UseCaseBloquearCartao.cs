@@ -13,7 +13,13 @@ namespace Domain.Application.UseCases.BloquearCartao
         {
             try
             {
-                return new BaseReturn().Sucesso(await _repo.BloquearCartao(transacao));
+
+                var _cartao = await _repo.ConsultarCartao(transacao.NumeroCartao);
+
+                if (_cartao is null)
+                    return new BaseReturn().BussinesException("Cartão inexistente.");
+
+                return await _repo.BloquearCartao(transacao);
 
             }
             catch (Exception ex)
