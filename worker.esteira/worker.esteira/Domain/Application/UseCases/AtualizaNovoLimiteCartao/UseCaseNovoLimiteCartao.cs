@@ -13,7 +13,20 @@ namespace Domain.Application.UseCases.AdicionarNovoCartao
 
         public async Task<BaseReturn> Executar(TransacaoNovoLimiteCartao transacao)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var ret = await _repo.ConsultarCartao(transacao.NumeroCartao);
+
+                if (ret is null)
+                    return new BaseReturn().BussinesException("Cartão inexistente.");
+
+
+                return await _repo.AtualizarLimiteCartao(transacao);
+            }
+            catch (Exception ex)
+            {
+                return new BaseReturn().ErroSistema(ex);
+            }
         }
     }
 }

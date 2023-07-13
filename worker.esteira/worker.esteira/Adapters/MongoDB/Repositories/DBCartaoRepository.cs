@@ -1,6 +1,5 @@
 ﻿using Adapters.MongoDB.Connection;
-using Domain.Application.UseCases.NovoLimiteCartao;
-using Domain.Application.UseCases.SolicitarCartao;
+using Domain.Application.UseCases.AdicionarNovoCartao;
 using Domain.Core.Base;
 using Domain.Core.Contracts.Repositories;
 using Domain.Core.Models.Entidades;
@@ -13,29 +12,22 @@ namespace Adapters.MongoDB.Repositories
         private readonly ILogger<IDBCartaoRepository> _logger;
         private readonly IDBConnection _mongo;
         private IMongoCollection<Cartao>? _colCartao;
-        private IMongoCollection<LogPropostaLimiteCartao> _colHistoricoLimiteCartao;
-        private IMongoCollection<LogPropostaSolicitaCartao> _colHistoricoSolicitaCartao;
         private FilterDefinition<Cartao> _filterCartao;
-        private FilterDefinition<LogPropostaLimiteCartao> _filterLogNovoLimiteCartao;
-        private FilterDefinition<LogPropostaSolicitaCartao> _filterLogSolicitaCartao;
         private UpdateOptions _updateOptions;
-        //private FilterDefinition<LogBloqueioCartao> _filterBloqueioCartao;
+        
 
 
         public DBCartaoRepository(IServiceProvider serviceProvider)
         {
             _mongo = serviceProvider.GetService<IDBConnection>();
             _logger = serviceProvider.GetRequiredService<ILogger<IDBCartaoRepository>>();
-
             _colCartao = _mongo.Connection("CARTAO").GetCollection<Cartao>("Cartao");
-            _colHistoricoLimiteCartao = _mongo.Connection("CARTAO").GetCollection<LogPropostaLimiteCartao>("LogPropostaLimiteCartao");
-            _colHistoricoSolicitaCartao = _mongo.Connection("CARTAO").GetCollection<LogPropostaSolicitaCartao>("LogPropostaSolicitaCartao");
 
         }
 
 
    
-        public async ValueTask<bool> AdicionarCartaoSolicitado(TransacaoSolicitarCartao transacao)
+        public async ValueTask<BaseReturn> AdicionarCartaoSolicitado(TransacaoAdicionarNovoCartao transacao)
         {
             var _cartao = new Cartao
             {
@@ -52,31 +44,20 @@ namespace Adapters.MongoDB.Repositories
 
             _colCartao.InsertOne(_cartao);
 
-            return true;
+            return new BaseReturn().Sucesso(_cartao);
         }
 
             
-        public async ValueTask<bool> AtualizarLimiteCartao(TransacaoNovoLimiteCartao transacao)
+        public async ValueTask<BaseReturn> AtualizarLimiteCartao(TransacaoNovoLimiteCartao transacao)
         {
             try
             {
                 _filterCartao = Builders<Cartao>.Filter.Where(x => x.NumeroCartao == transacao.NumeroCartao);
                 var _updateCartao = Builders<Cartao>.Update.Set("Limite", transacao.Limite);
 
-                var _novolimite = new LogPropostaLimiteCartao
-                {
-                    Protocolo = transacao.Protocolo,
-                    Cartao = transacao.DadosCartao,
-                    DataOcorrencia = DateTime.Now,
-                    Limite = transacao.Limite,
-                    FaixaCalculo = transacao.FaixaCalculo,
-                    Multiplicador = transacao.Multiplicador,
+                await _colCartao.UpdateOneAsync(_filterCartao, _updateCartao, _updateOptions);
 
-                };
-
-                _colHistoricoLimiteCartao.InsertOne(_novolimite);
-
-                return true;
+                return new BaseReturn().Sucesso(transacao);
             }
             catch { throw; }
         }
@@ -87,6 +68,7 @@ namespace Adapters.MongoDB.Repositories
             _filterCartao = Builders<Cartao>.Filter.Where(x => x.NumeroCartao == numeroCartao);
             return await _colCartao.Find(_filterCartao).FirstOrDefaultAsync<Cartao>();
         }
+
 
         public void Dispose()
         {
@@ -103,16 +85,6 @@ namespace Adapters.MongoDB.Repositories
                 _filterCartao = null;
                 if (_colCartao != null)
                     _colCartao = null;
-
-                _filterBloqueioCartao = null;
-                if (_colBloqueioCartao != null)
-                    _colBloqueioCartao = null;
-
-                if (_colHistoricoLimiteCartao != null)
-                    _colHistoricoLimiteCartao = null;
-
-                if (_colHistoricoSolicitaCartao != null)
-                    _colHistoricoSolicitaCartao = null;
             }
 
             // Free unmanaged resources

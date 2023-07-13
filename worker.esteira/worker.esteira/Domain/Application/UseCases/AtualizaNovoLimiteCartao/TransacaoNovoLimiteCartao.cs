@@ -1,14 +1,14 @@
 ﻿
 using Domain.Core.Models.Entidades;
-using Domain.Core.Models.Request;
+using Domain.Core.Models.Events;
 
 
 namespace Domain.Application.UseCases.AdicionarNovoCartao
 {
     public record TransacaoNovoLimiteCartao
     {
-        public string NumeroCartao { get; }
-        public decimal Limite { get; set; }
+        public string? NumeroCartao { get; set; }
+        public decimal? Limite { get; set; }
         public decimal Renda { get; set; }
         public double FaixaCalculo { get; set; }
         public int Multiplicador { get; set; }

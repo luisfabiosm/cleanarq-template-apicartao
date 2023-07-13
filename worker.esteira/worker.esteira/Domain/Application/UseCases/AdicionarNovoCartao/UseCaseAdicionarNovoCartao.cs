@@ -13,7 +13,15 @@ namespace Domain.Application.UseCases.AdicionarNovoCartao
         }
         public async Task<BaseReturn> Executar(TransacaoAdicionarNovoCartao transacao)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _repo.AdicionarCartaoSolicitado(transacao);
+
+            }
+            catch (Exception ex)
+            {
+                return new BaseReturn().ErroSistema(ex);
+            }
         }
     }
 }

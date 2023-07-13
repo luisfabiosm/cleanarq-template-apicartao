@@ -1,7 +1,7 @@
 ﻿using Domain.Core.Base;
 using Domain.Core.Enums;
 using Domain.Core.Models.Entidades;
-using Domain.Core.Models.Request;
+using Domain.Core.Models.Events;
 
 
 namespace Domain.Application.UseCases.AdicionarNovoCartao

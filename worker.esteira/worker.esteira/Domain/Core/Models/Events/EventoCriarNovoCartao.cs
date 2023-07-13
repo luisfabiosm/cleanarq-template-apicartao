@@ -1,9 +1,9 @@
 ﻿using Domain.Core.Enums;
 using Domain.Core.Models.Entidades;
 
-namespace Domain.Core.Models.Request
+namespace Domain.Core.Models.Events
 {
-    public struct EventoCriarNovoCartao
+    public record EventoCriarNovoCartao
     {
         public string Protocolo { get; set; }
         public string NumeroCartao { get; }

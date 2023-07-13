@@ -26,7 +26,7 @@ namespace Domain.Core.Base
             this.message = message;
         }
 
-        public BaseReturn Sucess(object retorno)
+        public BaseReturn Sucesso(object retorno)
         {
             this.status = EnumReturnStatus.SUCESSO;
             this.message = JsonSerializer.Serialize(retorno);
@@ -34,7 +34,7 @@ namespace Domain.Core.Base
             return this;
         }
 
-        public BaseReturn SystemException(string message, string stack)
+        public BaseReturn ErroSistema(string message, string stack)
         {
             this.status = EnumReturnStatus.SISTEMA;
             this.message = message;
@@ -44,7 +44,18 @@ namespace Domain.Core.Base
            
         }
 
-        public BaseReturn SystemException(Exception ex)
+
+        public BaseReturn ErroSistema(Exception ex)
+        {
+            this.status = EnumReturnStatus.SISTEMA;
+            this.message = ex.Message;
+            this.stack = ex.StackTrace;
+
+            return this;
+
+        }
+
+        public BaseReturn ErroNegocio(Exception ex)
         {
             this.status = EnumReturnStatus.SISTEMA;
             this.message = ex.Message;
