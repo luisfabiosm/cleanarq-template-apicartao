@@ -6,7 +6,7 @@
         public static IServiceCollection AddAPIExtensions(this IServiceCollection services, IConfiguration configuration)
         {
 
-            services.AddMongoAdapter(configuration);
+            services.AddAdapters(configuration);
             services.AddEndpointsApiExplorer();
             services.AddDomainAdapter();
             //service.AddJWTExtensions();

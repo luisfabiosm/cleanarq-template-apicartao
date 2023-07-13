@@ -10,7 +10,7 @@ namespace Infra.Register
 {
     public static class MongoExtensions
     {
-        public static IServiceCollection AddMongoAdapter(this IServiceCollection service, IConfiguration configuration)
+        public static IServiceCollection AddAdapters(this IServiceCollection service, IConfiguration configuration)
         {
 
             #region NoSQL Session Management
