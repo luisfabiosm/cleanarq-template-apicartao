@@ -64,6 +64,8 @@ namespace Adapters.RabbitMQ.Services
             {
                 var _arguments = new Dictionary<string, object>();
 
+                _channel.QueueBind(fila,exchange,"");
+
                 //Normal Queue
                 _channel.QueueDeclare(fila,
                                        durable: true,
