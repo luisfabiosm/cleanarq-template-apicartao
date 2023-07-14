@@ -25,17 +25,6 @@ namespace Domain.Application.UseCases.SolicitarCartao
         {
             base.setTransacaoProtocolo(conta.Numero.ToString());
             this.DadosConta = conta;
-            //this.DadosConta = new Conta
-            //{
-            //    Agencia = conta.Agencia,
-            //    Numero = conta.Numero,
-            //    TitularConta = new Titular
-            //    {
-            //        Nome = conta.TitularConta.Nome,
-            //        DataNascimwento = conta.TitularConta.DataNascimwento,
-            //        CPF = conta.TitularConta.CPF
-            //    }
-            //};
             this.DiaVencimento = diavencimento;
             this.Bandeira = bandeira;
             this.TipoCartao = tipo;

@@ -1,7 +1,6 @@
 ﻿using Adapters.MongoDB.Connection;
 using Adapters.MongoDB.Repositories;
 using Adapters.RabbitMQ.Connection;
-using Adapters.RabbitMQ.Services;
 using Domain.Core.Contracts.Repositories;
 using Domain.Core.Contracts.Services;
 
@@ -36,7 +35,7 @@ namespace Infra.Register
             });
 
             service.AddSingleton<IRabbitMQConnection, RabbitMQConnection>();
-            service.AddSingleton<IRabbitMQService, RabbitMQService>();
+            
             #endregion
 
             return service;

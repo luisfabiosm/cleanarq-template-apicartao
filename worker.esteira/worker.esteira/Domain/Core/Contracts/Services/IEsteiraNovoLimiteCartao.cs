@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Core.Contracts.Services
 {
-    public interface IEsteiraNovoLimiteCartao
+    public interface IEsteiraNovoLimiteCartao: IRabbitMQConsumerService
     {
         void AtualizarNovoLimiteCartao(CancellationToken stoppingToken);
     }

@@ -35,7 +35,7 @@ namespace worker.esteira.Microservice
         {
 
             _esteiraNovoCartao.AssinarAdicionarCartao(stoppingToken);
-             _esteiraNovoLimiteCartao.AtualizarNovoLimiteCartao(stoppingToken);
+            _esteiraNovoLimiteCartao.AtualizarNovoLimiteCartao(stoppingToken);
 
         }
     }

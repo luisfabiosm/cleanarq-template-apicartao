@@ -41,12 +41,12 @@ namespace Adapters.RabbitMQ.Services
                   durable: true,
                   exclusive: false,
                   autoDelete: false);
-                _channel.QueueBind(fila, exchange, "directexchange_key");
+                _channel.QueueBind(fila, exchange, fila + "_directexchange_key");
 
                 IBasicProperties properties = _channel.CreateBasicProperties();
                 properties.Persistent = true;
                 _channel.BasicPublish(exchange: exchange,
-                                     routingKey: "directexchange_key",
+                                     routingKey: fila + "_directexchange_key",
                                      basicProperties: properties,
                                      body: Encoding.UTF8.GetBytes(System.Text.Json.JsonSerializer.Serialize(@object)));
             }

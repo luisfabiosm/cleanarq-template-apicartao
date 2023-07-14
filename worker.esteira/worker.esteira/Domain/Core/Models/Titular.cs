@@ -5,12 +5,12 @@
         public string id { get; internal set; }
         public string CPF { get; set; }
         public string Nome { get; set; } = "";
-        public DateTime DataNascimwento { get; set; }
+        public DateTime DataNascimento { get; set; }
 
 
         public int getIdade()
         {
-            return DataNascimwento.Year - DateTime.Now.Year;
+            return DataNascimento.Year - DateTime.Now.Year;
         }
 
         public string getNomeImpressao()

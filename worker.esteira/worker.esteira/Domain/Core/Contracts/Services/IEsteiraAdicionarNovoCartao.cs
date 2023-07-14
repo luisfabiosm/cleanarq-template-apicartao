@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Core.Contracts.Services
 {
-    public interface IEsteiraAdicionarNovoCartao
+    public interface IEsteiraAdicionarNovoCartao : IRabbitMQConsumerService
     {
 
         void AssinarAdicionarCartao(CancellationToken stoppingToken);
