@@ -18,7 +18,7 @@ namespace Domain.Application.Services
         }
 
 
-        public async Task AtualizarNovoLimiteCartao()
+        public void AtualizarNovoLimiteCartao(CancellationToken stoppingToken)
         {
 
             try

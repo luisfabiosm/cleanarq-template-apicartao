@@ -8,6 +8,6 @@ namespace Domain.Core.Contracts.Services
 {
     public interface IEsteiraNovoLimiteCartao
     {
-        Task AtualizarNovoLimiteCartao();
+        void AtualizarNovoLimiteCartao(CancellationToken stoppingToken);
     }
 }

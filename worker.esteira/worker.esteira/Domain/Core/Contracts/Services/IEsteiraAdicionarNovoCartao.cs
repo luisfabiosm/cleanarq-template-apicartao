@@ -10,6 +10,6 @@ namespace Domain.Core.Contracts.Services
     public interface IEsteiraAdicionarNovoCartao
     {
 
-        Task AssinarAdicionarCartao();
+        void AssinarAdicionarCartao(CancellationToken stoppingToken);
     }
 }

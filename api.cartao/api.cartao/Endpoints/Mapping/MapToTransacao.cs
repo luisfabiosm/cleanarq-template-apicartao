@@ -1,4 +1,5 @@
-﻿using Domain.Application.UseCases.BloquearCartao;
+﻿
+using Domain.Application.UseCases.BloquearCartao;
 using Domain.Application.UseCases.ConsultarBloqueioCartao;
 using Domain.Application.UseCases.ConsultarCartao;
 using Domain.Application.UseCases.ConsultarProtocolo;

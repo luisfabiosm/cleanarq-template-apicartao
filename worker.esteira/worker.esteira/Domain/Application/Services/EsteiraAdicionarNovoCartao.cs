@@ -15,7 +15,7 @@ namespace Domain.Application.Services
             _rabbitMQService = serviceProvider.GetRequiredService<IRabbitMQService>();
             _useCase = serviceProvider.GetRequiredService<IUseCaseAdicionarNovoCartao>();
         }
-        public async Task AssinarAdicionarCartao()
+        public  void AssinarAdicionarCartao(CancellationToken stoppingToken)
         {
             try
             {

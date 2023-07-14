@@ -1,24 +1,25 @@
 using Domain.Core.Contracts.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace worker.esteira.Microservice
 {
     public class WorkerService : BackgroundService
     {
         private readonly ILogger<WorkerService> _logger;
-        private readonly IMainService _mainService;
-
+        private readonly IEsteiraAdicionarNovoCartao _esteiraNovoCartao;
+        private readonly IEsteiraNovoLimiteCartao _esteiraNovoLimiteCartao;
         public WorkerService(IServiceProvider serviceProvider)
         {
             _logger = serviceProvider.GetRequiredService<ILogger<WorkerService>>();
-            _mainService = serviceProvider.GetRequiredService<IMainService>();
-
+            _esteiraNovoCartao = serviceProvider.GetRequiredService<IEsteiraAdicionarNovoCartao>();
+            _esteiraNovoLimiteCartao = serviceProvider.GetRequiredService<IEsteiraNovoLimiteCartao>();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             try
             {
-                await _mainService.IniciarService(stoppingToken);
+                await initService(stoppingToken);
                 _logger.LogTrace($"Esteira iniciada com sucesso.");
                 Console.WriteLine($"Esteira iniciada com sucesso.");
 
@@ -28,6 +29,14 @@ namespace worker.esteira.Microservice
                 _logger.LogError($"[ExecuteAsync] ERROR: {ex.Message}");
                 Console.WriteLine($"[ExecuteAsync] ERROR: {ex.Message}");
             }
+        }
+
+        private async Task initService(CancellationToken stoppingToken)
+        {
+
+            _esteiraNovoCartao.AssinarAdicionarCartao(stoppingToken);
+             _esteiraNovoLimiteCartao.AtualizarNovoLimiteCartao(stoppingToken);
+
         }
     }
 }
