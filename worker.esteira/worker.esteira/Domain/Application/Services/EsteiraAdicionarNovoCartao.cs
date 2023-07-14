@@ -17,46 +17,50 @@ namespace Domain.Application.Services
         }
         public  void AssinarAdicionarCartao(CancellationToken stoppingToken)
         {
-            try
+            new Task(() =>
             {
-
-                _rabbitMQService.AssinarEvento<EventoCriarNovoCartao>("SOLICITACAO.CARTAO", "AMBIENTE.CEE");
-                _rabbitMQService.ReceberExcecao += async (exception, deliveryTag) =>
+                try
                 {
-                    Console.WriteLine(exception.Message);
-                    throw exception;
-                };
 
-                _rabbitMQService.ReceberMensagem += async (message, deliveryTag) =>
+                    _rabbitMQService.AssinarEvento<EventoCriarNovoCartao>("SOLICITACAO.CARTAO");
+                    _rabbitMQService.ReceberExcecao += async (exception, deliveryTag) =>
+                    {
+                        Console.WriteLine(exception.Message);
+                        throw exception;
+                    };
+
+                    _rabbitMQService.ReceberMensagem += async (message, deliveryTag) =>
+                    {
+                        try
+                        {
+                            Console.WriteLine($"Mensagem {message}");
+
+                            var ret = await _useCase.Executar(new TransacaoAdicionarNovoCartao(message));
+
+
+                            if (ret.status != Core.Enums.EnumReturnStatus.SUCESSO)
+                                _rabbitMQService.Nack(deliveryTag, true);
+
+                            // _rabbitMQService.Ack(deliveryTag);
+
+                            Console.WriteLine($"Mensagem Processada: {message}");
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.Write($"ERRO: {ex.Message}");
+                            // _rabbitMQService.Nack(deliveryTag, true);
+                            throw;
+                        }
+                    };
+                }
+
+
+                catch
                 {
-                    try
-                    {
-                        Console.WriteLine($"Mensagem {message}");
-
-                        var ret = await _useCase.Executar(new TransacaoAdicionarNovoCartao(message));
-
-
-                        if (ret.status != Core.Enums.EnumReturnStatus.SUCESSO)
-                            _rabbitMQService.Nack(deliveryTag, true);
-
-                        _rabbitMQService.Ack(deliveryTag);
-
-                        Console.WriteLine($"Mensagem Processada: {message}");
-
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.Write($"ERRO: {ex.Message}");
-                        _rabbitMQService.Nack(deliveryTag, true);
-                        throw;
-                    }
-                };
-            }
-
-            catch
-            {
-                throw;
-            }
+                    throw;
+                }
+            }).Start();
         }
     }
 }

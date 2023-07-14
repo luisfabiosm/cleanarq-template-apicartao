@@ -58,13 +58,13 @@ namespace Adapters.RabbitMQ.Services
         }
 
 
-        public void AssinarEvento<T>(string fila, string exchange = null)
+        public void AssinarEvento<T>(string fila)
         {
             try
             {
                 var _arguments = new Dictionary<string, object>();
 
-                _channel.QueueBind(fila,exchange,"");
+               // _channel.QueueBind(fila,exchange,"");
 
                 //Normal Queue
                 _channel.QueueDeclare(fila,
@@ -92,7 +92,7 @@ namespace Adapters.RabbitMQ.Services
                     }
                 };
 
-                _channel.BasicConsume(queue: fila, autoAck: false, consumer: consumer);
+                _channel.BasicConsume(queue: fila, autoAck: true, consumer: consumer);
 
             }
             catch (Exception e)
