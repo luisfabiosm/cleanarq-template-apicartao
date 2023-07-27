@@ -35,7 +35,6 @@ namespace Adapters.RabbitMQ.Connection
         }
 
 
-
         public IConnection Connection => this._connection;
 
 

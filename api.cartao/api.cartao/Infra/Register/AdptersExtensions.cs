@@ -26,10 +26,10 @@ namespace Infra.Register
             {
                 configuration.GetSection("RabbitMQ").Bind(settings);
 
-                settings.Host = "";
+                settings.Host = "192.168.0.63";
                 settings.Port = 5672;
-                settings.Username = "guest";
-                settings.Password = "guest";
+                settings.Username = "automacao";
+                settings.Password = "automacao123";
                 settings.Retry = 3;
                 settings.Delay = 6;
                 settings.ConnectionTimeout = 5000;
